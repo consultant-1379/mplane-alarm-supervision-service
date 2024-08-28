@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>mplane-alarm-supervision-service</artifactId>
+        <groupId>com.ericsson.oss.services.fm</groupId>
+        <version>1.3.4-SNAPSHOT</version>
+    </parent>
+    <artifactId>mplane-alarm-supervision-service-ear</artifactId>
+    <packaging>ear</packaging>
+
+    <name>[${project.parent.artifactId}] EAR module</name>
+
+    <properties>
+        <version.maven-ear-plugin>3.0.2</version.maven-ear-plugin>
+        <project.ear.contextRoot>${project.parent.artifactId}</project.ear.contextRoot>
+        <project.war.contextRoot>/${project.parent.artifactId}</project.war.contextRoot>
+
+        <!-- JBoss modules your service will automatically add to classpath -->
+        <project.ear.Dependencies>org.slf4j, com.ericsson.oss.itpf.datalayer.dps.api export, com.ericsson.oss.itpf.sdk.service-framework:4.x services export</project.ear.Dependencies>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>mplane-alarm-supervision-service-ejb</artifactId>
+            <version>${project.version}</version>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-war</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <outputDirectory>${project.parent.artifactId}-${project.version}</outputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>${version.maven-ear-plugin}</version>
+                <configuration>
+                    <version>${version.jee}</version>
+                    <workDirectory>target/${project.parent.artifactId}-${project.version}</workDirectory>
+                    <defaultLibBundleDir>${project.ear.defaultLibBundleDir}</defaultLibBundleDir>
+                    <description>${project.parent.artifactId} JEE8 service</description>
+                    <displayName>${project.parent.artifactId} JEE8 service</displayName>
+                    <archive>
+                        <manifestEntries>
+                            <Dependencies>${project.ear.Dependencies}</Dependencies>
+                        </manifestEntries>
+                    </archive>
+                    <modules>
+                        <ejbModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.parent.artifactId}-ejb</artifactId>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>${project.parent.artifactId}-war</artifactId>
+                            <contextRoot>${project.war.contextRoot}</contextRoot>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<messaging-deployment xmlns="urn:jboss:messaging-deployment:1.0">
+    <hornetq-server>
+        <jms-destinations>
+            <jms-queue name="UnusedELChannel">
+                <entry name="queue/queueUnusedChannelEL-amq" />
+                <entry name="java:jboss/exported/jms/queue/queueUnusedChannelEL-amq" />
+            </jms-queue>
+            <jms-queue name="UsedELChannel">
+                <entry name="queue/queueElUsed-amq" />
+                <entry name="java:jboss/exported/jms/queue/queueElUsed-amq" />
+            </jms-queue>
+            <jms-queue name="queue1">
+                <entry name="queue/queue1-amq" />
+                <entry name="java:jboss/exported/jms/queue/queue1-amq" />
+            </jms-queue>
+            <jms-topic name="jcaChannel">
+                <entry name="topic/jca-channel-amq" />
+                <entry name="java:jboss/exported/jms/topic/jca-channel-amq" />
+            </jms-topic>
+            <jms-topic name="sdkConfigPropertyModification">
+                <entry name="topic/sdk-config-property-modification-amq" />
+                <entry name="java:jboss/exported/jms/topic/sdk-config-property-modification-amq" />
+            </jms-topic>
+        </jms-destinations>
+    </hornetq-server>
+</messaging-deployment>
